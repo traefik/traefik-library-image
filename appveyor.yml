@@ -1,0 +1,31 @@
+version: 1.0.{build}
+
+platform: x64
+
+# `git clone` takes ages due to the repo's size
+shallow_clone: true
+
+image: "Windows Server 2019"
+
+environment:
+  matrix:
+    - PLATFORM: windows-1809
+      PLATFORM_DIR: ./windows/1809/
+
+
+matrix:
+  fast_finish: true
+
+build_script:
+  - ps: |
+      $ErrorActionPreference = 'Stop' # Fail if any instruction fails
+      $version = Get-Content .\version -Raw
+      $api_opts = ''
+      if($version.StartsWith('v2')) {
+        $api_opts='--api.insecure'
+      }
+      docker build -t traefik:$env:PLATFORM $env:PLATFORM_DIR
+      docker run --name lb -d -p 8080:8080 traefik:$env:PLATFORM --api $api_opts
+      sleep 2
+      docker ps
+      Invoke-WebRequest -Uri http://localhost:8080 -TimeoutSec 60

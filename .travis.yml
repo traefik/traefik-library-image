@@ -1,0 +1,11 @@
+language: bash
+services: docker
+
+git:
+  depth: 1
+
+install:
+  - git clone --depth 1 https://github.com/docker-library/official-images.git ~/official-images
+
+script:
+  - ./.ci/test.sh
