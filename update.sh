@@ -13,7 +13,14 @@ export ALPINE_VERSION=3.11
 PLATFORMS=(
 	"alpine"
 	"scratch"
-	"windows/1809"
+	"windows"
+)
+WINDOWSVERSIONS=(
+	"2004"
+	"1909"
+	"1904"
+	"1809"
+	"ltsc2019"
 )
 
 SCRIPT_DIRNAME_ABSOLUTEPATH="$(cd "$(dirname "$0")" && pwd -P)"
@@ -26,11 +33,28 @@ for PLATFORM in "${PLATFORMS[@]}" ; do
 	[ -d "${PLATFORM_DIR}" ] || ( echo "= No directory found for ${PLATFORM_DIR}" && exit 1)
 
 	echo "= Generating Dockerfile for platform ${PLATFORM}"
-
-	rm -f "${PLATFORM_DIR}/Dockerfile"
-    # the version of the template is determined by the 2 first chars of the Traefik version passed as argument to this script
-	envsubst \$ALPINE_VERSION,\$VERSION < "${PLATFORM_DIR}/tmpl${VERSION:0:2}.Dockerfile" > "${PLATFORM_DIR}/Dockerfile"
-
+	
+	if [ ${PLATFORM} = "windows" ] ; then
+		echo "= Generating Windows"
+		for WINDOWSVERSION in "${WINDOWSVERSIONS[@]}" ; do
+			WINDOWS_PLATFORM_DIR="${PLATFORM_DIR}/${WINDOWSVERSION}"
+			if [ -f "${WINDOWS_PLATFORM_DIR}/Dockerfile" ] ; then
+				rm -f "${WINDOWS_PLATFORM_DIR}/Dockerfile"
+			fi
+			# create the directory if it doesn't exist
+			if [ ! -d ${WINDOWS_PLATFORM_DIR} ]; then
+				mkdir ${WINDOWS_PLATFORM_DIR}
+			fi
+			
+			export WINDOWS_VERSION=${WINDOWSVERSION}
+			# the version of the template is determined by the 2 first chars of the Traefik version passed as argument to this script
+			envsubst \$WINDOWS_VERSION,\$VERSION < "${PLATFORM_DIR}/template/tmpl${VERSION:0:2}.Dockerfile" > "${WINDOWS_PLATFORM_DIR}/Dockerfile"
+		done
+	else
+		rm -f "${PLATFORM_DIR}/Dockerfile"
+	    # the version of the template is determined by the 2 first chars of the Traefik version passed as argument to this script
+		envsubst \$ALPINE_VERSION,\$VERSION < "${PLATFORM_DIR}/tmpl${VERSION:0:2}.Dockerfile" > "${PLATFORM_DIR}/Dockerfile"
+	fi
 done
 
 echo "= All Dockerfiles updated."
