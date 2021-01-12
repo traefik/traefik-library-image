@@ -24,4 +24,4 @@ LABEL org.opencontainers.image.vendor="Traefik Labs" \
 	org.opencontainers.image.description="A modern reverse-proxy" \
 	org.opencontainers.image.version="v2.3.7" \
 	org.opencontainers.image.documentation="https://docs.traefik.io" \
-    org.opencontainers.image.url="https://github.com/traefik/traefik"
+	org.opencontainers.image.url="https://github.com/traefik/traefik"
