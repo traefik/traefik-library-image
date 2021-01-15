@@ -8,8 +8,6 @@ $api_opts='--api.insecure'
 $platform = 'windows-1809'
 $platform_dir = './windows/1809/'
 
-docker pull mcr.microsoft.com/windows/servercore:1809
-
 docker build -t traefik:$platform $platform_dir
 docker run --name lb -d -p 8080:8080 traefik:$platform --api $api_opts
 sleep 2
