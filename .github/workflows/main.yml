@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - master
+      - feat/*
 
   pull_request:
 
 jobs:
 
-  docker-library:
-    name: Test Traefik docker image
+  docker-library-linux:
+    name: Test Traefik docker image on linux
     runs-on: ubuntu-latest
 
     steps:
@@ -25,3 +26,18 @@ jobs:
 
       - name: Test
         run: ./.ci/test.sh
+
+  docker-library-windows:
+    name: Test Traefik docker image on windows
+    runs-on: windows-2019
+
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Test
+        run: .\.ci\test.ps1
+        shell: powershell
