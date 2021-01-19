@@ -1,0 +1,42 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+
+jobs:
+
+  docker-library-linux:
+    name: Test Traefik docker image on linux
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Clone Docker official images
+        run: git clone --depth 1 https://github.com/docker-library/official-images.git ~/official-images
+
+      - name: Test
+        run: ./.ci/test.sh
+
+  docker-library-windows:
+    name: Test Traefik docker image on windows
+    runs-on: windows-2019
+
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Test
+        run: .\.ci\test.ps1
+        shell: powershell
