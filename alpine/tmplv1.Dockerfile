@@ -6,6 +6,7 @@ RUN set -ex; \
 		armhf) arch='arm' ;; \
 		aarch64) arch='arm64' ;; \
 		x86_64) arch='amd64' ;; \
+                ppc64le) arch='ppc64le' ;; \
 		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
 	esac; \
 	wget --quiet -O /usr/local/bin/traefik "https://github.com/traefik/traefik/releases/download/$VERSION/traefik_linux-$arch"; \
