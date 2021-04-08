@@ -8,7 +8,7 @@ RUN set -ex; \
 		x86_64) arch='amd64' ;; \
 		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
 	esac; \
-	wget --quiet -O /usr/local/bin/traefik "https://github.com/traefik/traefik/releases/download/v1.7.29/traefik_linux-$arch"; \
+	wget --quiet -O /usr/local/bin/traefik "https://github.com/traefik/traefik/releases/download/v1.7.30/traefik_linux-$arch"; \
 	chmod +x /usr/local/bin/traefik
 COPY entrypoint.sh /
 EXPOSE 80
@@ -20,5 +20,5 @@ LABEL org.opencontainers.image.vendor="traefik" \
 	org.opencontainers.image.url="https://traefik.io" \
 	org.opencontainers.image.title="Traefik" \
 	org.opencontainers.image.description="A modern reverse-proxy" \
-	org.opencontainers.image.version="v1.7.29" \
+	org.opencontainers.image.version="v1.7.30" \
 	org.opencontainers.image.documentation="https://docs.traefik.io"
