@@ -2,7 +2,9 @@ FROM mcr.microsoft.com/windows/nanoserver:1809
 
 USER ContainerAdministrator
 COPY --from=traefik:${VERSION}-windowsservercore-1809 \
-    C:\\traefik.exe C:\\traefik.exe
+    /windows/system32/netapi32.dll /windows/system32/netapi32.dll
+COPY --from=traefik:${VERSION}-windowsservercore-1809 \
+    /traefik.exe /traefik.exe
 
 EXPOSE 80
 ENTRYPOINT [ "/traefik" ]
