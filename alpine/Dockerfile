@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.14
 RUN apk --no-cache add ca-certificates tzdata
 RUN set -ex; \
 	apkArch="$(apk --print-arch)"; \
