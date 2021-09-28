@@ -29,7 +29,7 @@ Start Traefik:
 docker run -d -p 8080:8080 -p 80:80 \
 -v $PWD/traefik.yml:/etc/traefik/traefik.yml \
 -v /var/run/docker.sock:/var/run/docker.sock \
-traefik:v2.0
+traefik:v2.5
 ```
 
 Start a backend server, named `test`:
@@ -122,9 +122,9 @@ The web UI [http://localhost:8080](http://localhost:8080) will give you an overv
 
 You can find the complete documentation:
 
-- for [v1.7](https://docs.traefik.io/v1.7)
-- for [v2.0](https://docs.traefik.io/v2.0)
+- for [v1.7](https://doc.traefik.io/traefik/v1.7)
+- for [v2.x](https://doc.traefik.io/traefik/)
 
-A community support is available at [https://community.containo.us](https://community.containo.us)
+A community support is available at [https://community.traefik.io](https://community.traefik.io)
 
 A collection of contributions around Traefik can be found at [https://awesome.traefik.io](https://awesome.traefik.io).
