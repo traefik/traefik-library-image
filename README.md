@@ -122,8 +122,8 @@ The web UI [http://localhost:8080](http://localhost:8080) will give you an overv
 
 You can find the complete documentation:
 
-- for [v1.7](https://doc.traefik.io/traefik/v1.7)
 - for [v2.x](https://doc.traefik.io/traefik/)
+- for [v1.7](https://doc.traefik.io/traefik/v1.7)
 
 A community support is available at [https://community.traefik.io](https://community.traefik.io)
 
