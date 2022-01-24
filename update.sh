@@ -12,6 +12,7 @@ export VERSION=$1
 export ALPINE_VERSION=3.14
 PLATFORMS=(
 	"alpine"
+	"alpine-k8s"
 	"scratch"
 	"windows/1809"
 )
