@@ -14,6 +14,7 @@ PLATFORMS=(
 	"alpine"
 	"scratch"
 	"windows/1809"
+	"windows/servercore-ltsc2022"
 )
 
 SCRIPT_DIRNAME_ABSOLUTEPATH="$(cd "$(dirname "$0")" && pwd -P)"

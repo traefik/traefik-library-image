@@ -10,7 +10,7 @@ on:
 jobs:
 
   docker-library-linux:
-    name: Test Traefik docker image on linux
+    name: Test on linux
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,8 @@ jobs:
       - name: Test
         run: ./.ci/test.sh
 
-  docker-library-windows:
-    name: Test Traefik docker image on windows
+  docker-library-win1809:
+    name: Test on windows server 2019
     runs-on: windows-2019
 
     steps:
@@ -38,5 +38,20 @@ jobs:
           fetch-depth: 1
 
       - name: Test
-        run: .\.ci\test.ps1
+        run: .\.ci\test.ps1 -target '1809'
+        shell: powershell
+
+  docker-library-wincore2022:
+    name: Test on windows server core 2022
+    runs-on: windows-2022
+
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Test
+        run: .\.ci\test.ps1 -target 'servercore-ltsc2022'
         shell: powershell
