@@ -2,7 +2,7 @@ FROM  mcr.microsoft.com/windows/servercore:ltsc2022
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN Invoke-WebRequest \
-        -Uri "https://github.com/traefik/traefik/releases/download/v2.9.1/traefik_v2.9.1_windows_amd64.zip" \
+        -Uri "https://github.com/traefik/traefik/releases/download/v2.9.4/traefik_v2.9.4_windows_amd64.zip" \
         -OutFile "/traefik.zip"; \
     Expand-Archive -Path "/traefik.zip" -DestinationPath "/" -Force; \
     Remove-Item "/traefik.zip" -Force
@@ -16,5 +16,5 @@ LABEL org.opencontainers.image.vendor="Traefik Labs" \
     org.opencontainers.image.source="https://github.com/traefik/traefik" \
     org.opencontainers.image.title="Traefik" \
     org.opencontainers.image.description="A modern reverse-proxy" \
-    org.opencontainers.image.version="v2.9.1" \
+    org.opencontainers.image.version="v2.9.4" \
     org.opencontainers.image.documentation="https://docs.traefik.io"
