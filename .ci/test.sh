@@ -9,6 +9,9 @@ API_OPTS=""
 if [[ ${VERSION} = v2* ]]; then
     API_OPTS="--api.insecure"
 fi
+if [[ ${VERSION} = v3* ]]; then
+    API_OPTS="--api.insecure"
+fi
 
 TARGETS=(
     "traefik:${VERSION}-alpine!./alpine"

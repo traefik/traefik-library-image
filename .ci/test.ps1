@@ -11,6 +11,9 @@ $api_opts = ''
 if($version.StartsWith('v2')) {
 $api_opts='--api.insecure'
 }
+if($version.StartsWith('v3')) {
+$api_opts='--api.insecure'
+}
 
 docker build -t traefik:$target windows/$target
 docker run --name lb -d -p 8080:8080 traefik:$target --api $api_opts
