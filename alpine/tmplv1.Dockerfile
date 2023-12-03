@@ -9,7 +9,8 @@ RUN set -ex; \
 		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
 	esac; \
 	wget --quiet -O /usr/local/bin/traefik "https://github.com/traefik/traefik/releases/download/$VERSION/traefik_linux-$arch"; \
-	chmod +x /usr/local/bin/traefik
+	chmod +x /usr/local/bin/traefik; \
+	apk --no-cache add libcap && setcap cap_net_bind_service=+ep /usr/local/bin/traefik && apk del -r libcap
 COPY entrypoint.sh /
 EXPOSE 80
 ENTRYPOINT ["/entrypoint.sh"]

@@ -12,7 +12,8 @@ RUN set -ex; \
 	wget --quiet -O /tmp/traefik.tar.gz "https://github.com/traefik/traefik/releases/download/v2.11.0-rc1/traefik_v2.11.0-rc1_linux_$arch.tar.gz"; \
 	tar xzvf /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
 	rm -f /tmp/traefik.tar.gz; \
-	chmod +x /usr/local/bin/traefik
+	chmod +x /usr/local/bin/traefik; \
+	apk --no-cache add libcap && setcap cap_net_bind_service=+ep /usr/local/bin/traefik && apk del -r libcap
 COPY entrypoint.sh /
 EXPOSE 80
 ENTRYPOINT ["/entrypoint.sh"]
