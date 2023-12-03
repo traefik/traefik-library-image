@@ -1,7 +1,8 @@
 FROM alpine:3.19
-RUN apk --no-cache add ca-certificates tzdata
+COPY entrypoint.sh /
 RUN set -ex; \
-	apkArch="$(apk --print-arch)"; \
+	apk --no-cache add ca-certificates tzdata libcap; \
+    apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
 		armhf) arch='armv6' ;; \
 		aarch64) arch='arm64' ;; \
@@ -12,8 +13,9 @@ RUN set -ex; \
 	wget --quiet -O /tmp/traefik.tar.gz "https://github.com/traefik/traefik/releases/download/v2.11.0-rc1/traefik_v2.11.0-rc1_linux_$arch.tar.gz"; \
 	tar xzvf /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
 	rm -f /tmp/traefik.tar.gz; \
-	chmod +x /usr/local/bin/traefik
-COPY entrypoint.sh /
+	chmod +x /usr/local/bin/traefik; \
+	setcap cap_net_bind_service=ep /usr/local/bin/traefik cap_net_bind_service=ep /entrypoint.sh; \
+    apk del -r libcap
 EXPOSE 80
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["traefik"]
