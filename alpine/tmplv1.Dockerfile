@@ -1,7 +1,8 @@
 FROM alpine:$ALPINE_VERSION
-RUN apk --no-cache add ca-certificates tzdata
+COPY entrypoint.sh /
 RUN set -ex; \
-	apkArch="$(apk --print-arch)"; \
+	apk --no-cache add ca-certificates tzdata libcap; \
+    apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
 		armhf) arch='arm' ;; \
 		aarch64) arch='arm64' ;; \
@@ -9,8 +10,9 @@ RUN set -ex; \
 		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
 	esac; \
 	wget --quiet -O /usr/local/bin/traefik "https://github.com/traefik/traefik/releases/download/$VERSION/traefik_linux-$arch"; \
-	chmod +x /usr/local/bin/traefik
-COPY entrypoint.sh /
+	chmod +x /usr/local/bin/traefik; \
+	setcap cap_net_bind_service=ep /usr/local/bin/traefik cap_net_bind_service=ep /entrypoint.sh; \
+    apk del -r libcap
 EXPOSE 80
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["traefik"]
