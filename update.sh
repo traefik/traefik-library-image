@@ -14,6 +14,7 @@ PLATFORMS=(
 	"alpine"
 	"scratch"
 	"windows/1809"
+	"windows/nanoserver-ltsc2022"
 	"windows/servercore-ltsc2022"
 )
 
