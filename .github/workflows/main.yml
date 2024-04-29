@@ -55,18 +55,3 @@ jobs:
       - name: Test
         run: .\.ci\test.ps1 -target 'servercore-ltsc2022'
         shell: powershell
-
-  docker-library-winnano2022:
-    name: Test on windows nano server 2022
-    runs-on: windows-2022
-
-    steps:
-
-      - name: Check out code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Test
-        run: .\.ci\test.ps1 -target 'nanoserver-ltsc2022'
-        shell: powershell

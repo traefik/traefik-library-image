@@ -1,17 +1,6 @@
-# Installer image, needed for Invoke-WebRequest
-FROM  mcr.microsoft.com/windows/servercore:ltsc2022 AS installer
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-RUN Invoke-WebRequest \
-        -Uri "https://github.com/traefik/traefik/releases/download/v3.0.0/traefik_v3.0.0_windows_amd64.zip" \
-        -OutFile "/traefik.zip"; \
-    Expand-Archive -Path "/traefik.zip" -DestinationPath "/" -Force; \
-    Remove-Item "/traefik.zip" -Force
-
-# Runner image
 FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 
-COPY --from=installer /traefik.exe /
+COPY --from=traefik:v3.0.0-windowsservercore-ltsc2022 /traefik.exe /
 
 EXPOSE 80
 ENTRYPOINT [ "/traefik" ]
