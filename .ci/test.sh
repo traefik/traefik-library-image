@@ -2,6 +2,7 @@
 
 set -Eeuo pipefail
 # set -x
+shopt -s extglob
 
 VERSION=$(cat version)
 
@@ -14,8 +15,8 @@ if [[ ${VERSION} = v3* ]]; then
 fi
 
 TARGETS=(
-    "traefik:${VERSION}-alpine!./alpine"
-    "traefik:${VERSION}!./scratch"
+    "traefik:${VERSION}-alpine!./${VERSION/%.+([0-9])/}/alpine"
+    "traefik:${VERSION}!./${VERSION/%.+([0-9])/}/scratch"
 )
 
 for target in ${TARGETS[@]}; do
