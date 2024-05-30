@@ -2,6 +2,7 @@
 
 set -e
 set -u # Exit on error when uninitialized variable
+shopt -s extglob
 
 if [ $# -eq 0 ] ; then
 	echo "Usage: ./update.sh <traefik tag or branch>"
@@ -24,15 +25,19 @@ SCRIPT_DIRNAME_ABSOLUTEPATH="$(cd "$(dirname "$0")" && pwd -P)"
 pushd "${SCRIPT_DIRNAME_ABSOLUTEPATH}"
 
 for PLATFORM in "${PLATFORMS[@]}" ; do
-	PLATFORM_DIR="${SCRIPT_DIRNAME_ABSOLUTEPATH}/${PLATFORM}"
+	TEMPLATE_DIR="${SCRIPT_DIRNAME_ABSOLUTEPATH}/tmpl/${PLATFORM}"
+	PLATFORM_DIR="${SCRIPT_DIRNAME_ABSOLUTEPATH}/${VERSION/%.+([0-9])/}/${PLATFORM}"
 	[ -d "${PLATFORM_DIR}" ] || ( echo "= No directory found for ${PLATFORM_DIR}" && exit 1)
 
 	echo "= Generating Dockerfile for platform ${PLATFORM}"
 
 	rm -f "${PLATFORM_DIR}/Dockerfile"
     # the version of the template is determined by the 2 first chars of the Traefik version passed as argument to this script
-	envsubst \$ALPINE_VERSION,\$VERSION < "${PLATFORM_DIR}/tmpl${VERSION:0:2}.Dockerfile" > "${PLATFORM_DIR}/Dockerfile"
+	envsubst \$ALPINE_VERSION,\$VERSION < "${TEMPLATE_DIR}/tmpl${VERSION:0:2}.Dockerfile" > "${PLATFORM_DIR}/Dockerfile"
 
+	if [ "${PLATFORM}" = "alpine" ]; then
+		cp "${TEMPLATE_DIR}/entrypoint.sh" "${PLATFORM_DIR}/entrypoint.sh"
+	fi
 done
 
 echo "= All Dockerfiles updated."
