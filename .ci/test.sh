@@ -15,8 +15,8 @@ if [[ ${VERSION} = v3* ]]; then
 fi
 
 TARGETS=(
-    "traefik:${VERSION}-alpine!./${VERSION/%.+([0-9])/}/alpine"
-    "traefik:${VERSION}!./${VERSION/%.+([0-9])/}/scratch"
+    "traefik:${VERSION}-alpine!./${VERSION/%.+([0-9a-z\-])/}/alpine"
+    "traefik:${VERSION}!./${VERSION/%.+([0-9a-z\-])/}/scratch"
 )
 
 for target in ${TARGETS[@]}; do
