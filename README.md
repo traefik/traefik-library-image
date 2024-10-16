@@ -1,10 +1,70 @@
-![](https://docs.traefik.io/assets/img/traefik.logo.png)
+![Traefik Logo](https://docs.traefik.io/assets/img/traefik.logo.png)
 
 [Traefik](https://traefik.io) is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy.
 
 Traefik integrates with your existing infrastructure components ([Docker](https://www.docker.com/), [Swarm mode](https://docs.docker.com/engine/swarm/), [Kubernetes](https://kubernetes.io), [Marathon](https://mesosphere.github.io/marathon/), [Consul](https://www.consul.io/), [Etcd](https://coreos.com/etcd/), [Rancher](https://rancher.com), [Amazon ECS](https://aws.amazon.com/ecs), ...) and configures itself automatically and dynamically.
 
 Pointing Traefik at your orchestrator should be the *only* configuration step you need.
+
+## Traefik v3 - Example usage
+
+Enable `docker` provider and dashboard UI:
+
+```yml
+## traefik.yml
+
+# Docker configuration backend
+providers:
+  docker:
+    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
+
+# API and dashboard configuration
+api:
+  insecure: true
+```
+
+Start Traefik v3:
+
+```sh
+docker run -d -p 8080:8080 -p 80:80 \
+  -v $PWD/traefik.yml:/etc/traefik/traefik.yml \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  traefik:v3.2
+```  
+
+Start a backend server using the `traefik/whoami` image:
+
+```sh
+docker run -d --name test traefik/whoami
+```
+
+Access the whoami Service through Traefik:
+
+```console
+$ curl test.docker.localhost
+Hostname: 0693100b16de
+IP: 127.0.0.1
+IP: ::1
+IP: 192.168.215.4
+RemoteAddr: 192.168.215.3:57618
+GET / HTTP/1.1
+Host: test.docker.localhost
+User-Agent: curl/8.7.1
+Accept: */*
+Accept-Encoding: gzip
+X-Forwarded-For: 192.168.215.1
+X-Forwarded-Host: test.docker.localhost
+X-Forwarded-Port: 80
+X-Forwarded-Proto: http
+X-Forwarded-Server: 8a37fd4f35fb
+X-Real-Ip: 192.168.215.1
+```
+
+Access the Traefik Dashboard:
+
+Open your web browser and navigate to `http://localhost:8080` to access the Traefik dashboard. This will provide an overview of routers, services, and middlewares.
+
+![Web UI](https://raw.githubusercontent.com/traefik/traefik/v3.2/docs/content/assets/img/webui-dashboard.png)
 
 ## Traefik v2 - Example usage
 
