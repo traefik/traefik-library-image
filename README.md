@@ -29,7 +29,7 @@ Start Traefik v3:
 docker run -d -p 8080:8080 -p 80:80 \
   -v $PWD/traefik.yml:/etc/traefik/traefik.yml \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  traefik:v3.2
+  traefik:v3
 ```  
 
 Start a backend server using the `traefik/whoami` image:
