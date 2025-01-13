@@ -134,5 +134,3 @@ You can find the complete documentation:
 - for [v2.11](https://doc.traefik.io/traefik/v2.11)
 
 A community support is available at [https://community.traefik.io](https://community.traefik.io)
-
-A collection of contributions around Traefik can be found at [https://awesome.traefik.io](https://awesome.traefik.io).
