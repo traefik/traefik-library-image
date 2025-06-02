@@ -26,21 +26,6 @@ jobs:
       - name: Test
         run: ./.ci/test.sh
 
-  docker-library-win1809:
-    name: Test on windows server 2019
-    runs-on: windows-2019
-
-    steps:
-
-      - name: Check out code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Test
-        run: .\.ci\test.ps1 -target '1809'
-        shell: powershell
-
   docker-library-wincore2022:
     name: Test on windows server core 2022
     runs-on: windows-2022
