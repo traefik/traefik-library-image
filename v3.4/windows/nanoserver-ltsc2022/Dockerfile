@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 
-COPY --from=traefik:v3.4.2-windowsservercore-ltsc2022 /traefik.exe /
+COPY --from=traefik:v3.4.3-windowsservercore-ltsc2022 /traefik.exe /
 
 EXPOSE 80
 ENTRYPOINT [ "/traefik" ]
@@ -11,5 +11,5 @@ LABEL org.opencontainers.image.vendor="Traefik Labs" \
     org.opencontainers.image.source="https://github.com/traefik/traefik" \
     org.opencontainers.image.title="Traefik" \
     org.opencontainers.image.description="A modern reverse-proxy" \
-    org.opencontainers.image.version="v3.4.2" \
+    org.opencontainers.image.version="v3.4.3" \
     org.opencontainers.image.documentation="https://docs.traefik.io"
