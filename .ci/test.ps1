@@ -21,4 +21,4 @@ docker build -t traefik:$target $path/windows/$target
 docker run --name lb -d -p 8080:8080 traefik:$target --api $api_opts
 sleep 2
 docker ps
-Invoke-WebRequest -Uri http://localhost:8080 -TimeoutSec 60
+Invoke-WebRequest -Uri http://localhost:8080 -TimeoutSec 60 -UseBasicParsing
