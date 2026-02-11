@@ -4,6 +4,7 @@ RUN set -ex; \
 	apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
 		armhf) arch='armv6' ;; \
+    		armv7) arch="$apkArch" ;; \
 		aarch64) arch='arm64' ;; \
 		x86_64) arch='amd64' ;; \
 		riscv64) arch='riscv64' ;; \
