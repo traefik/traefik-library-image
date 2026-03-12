@@ -15,7 +15,7 @@ if($version.StartsWith('v3')) {
 $api_opts='--api.insecure'
 }
 
-$path = $version-replace "\.[0-9a-z\-]+\s*$"
+$path = $version -replace "(\.\d+)\..+$", '$1'
 
 docker build -t traefik:$target $path/windows/$target
 docker run --name lb -d -p 8080:8080 traefik:$target --api $api_opts
