@@ -6,7 +6,7 @@ param(
 Write-Output 'Test for ' + $target
 
 $ErrorActionPreference = 'Stop' # Fail if any instruction fails
-$version = Get-Content .\version -Raw
+$version = (Get-Content .\version -Raw).Trim()
 $api_opts = ''
 if($version.StartsWith('v2')) {
 $api_opts='--api.insecure'
