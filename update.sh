@@ -25,7 +25,7 @@ pushd "${SCRIPT_DIRNAME_ABSOLUTEPATH}"
 
 for PLATFORM in "${PLATFORMS[@]}" ; do
 	TEMPLATE_DIR="${SCRIPT_DIRNAME_ABSOLUTEPATH}/tmpl/${PLATFORM}"
-	PLATFORM_DIR="${SCRIPT_DIRNAME_ABSOLUTEPATH}/${VERSION/%.+([0-9a-z\-])/}/${PLATFORM}"
+	PLATFORM_DIR="${SCRIPT_DIRNAME_ABSOLUTEPATH}/$(echo "$VERSION" | cut -d. -f1-2)/${PLATFORM}"
 	[ -d "${PLATFORM_DIR}" ] || (mkdir -p ${PLATFORM_DIR})
 
 	echo "= Generating Dockerfile for platform ${PLATFORM}"

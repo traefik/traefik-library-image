@@ -15,8 +15,8 @@ if [[ ${VERSION} = v3* ]]; then
 fi
 
 TARGETS=(
-    "traefik:${VERSION}-alpine!./${VERSION/%.+([0-9a-z\-])/}/alpine"
-    "traefik:${VERSION}!./${VERSION/%.+([0-9a-z\-])/}/scratch"
+    "traefik:${VERSION}-alpine!./$(echo "$VERSION" | cut -d. -f1-2)/alpine"
+    "traefik:${VERSION}!./$(echo "$VERSION" | cut -d. -f1-2)/scratch"
 )
 
 for target in ${TARGETS[@]}; do
