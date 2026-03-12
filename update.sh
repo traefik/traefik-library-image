@@ -16,6 +16,8 @@ PLATFORMS=(
 	"scratch"
 	"windows/nanoserver-ltsc2022"
 	"windows/servercore-ltsc2022"
+	"windows/nanoserver-ltsc2025"
+	"windows/servercore-ltsc2025"
 )
 
 SCRIPT_DIRNAME_ABSOLUTEPATH="$(cd "$(dirname "$0")" && pwd -P)"
