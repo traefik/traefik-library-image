@@ -12,7 +12,7 @@ RUN set -ex; \
 		ppc64le) arch='ppc64le' ;; \
 		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
 	esac; \
-	wget --quiet -O /tmp/traefik.tar.gz "https://github.com/traefik/traefik/releases/download/v3.7.0-ea.2/traefik_v3.7.0-ea.2_linux_$arch.tar.gz"; \
+	wget --quiet -O /tmp/traefik.tar.gz "https://github.com/traefik/traefik/releases/download/v3.7.0-ea.3/traefik_v3.7.0-ea.3_linux_$arch.tar.gz"; \
 	tar xzvf /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
 	rm -f /tmp/traefik.tar.gz; \
 	chmod +x /usr/local/bin/traefik
@@ -27,5 +27,5 @@ LABEL org.opencontainers.image.vendor="Traefik Labs" \
     org.opencontainers.image.source="https://github.com/traefik/traefik" \
     org.opencontainers.image.title="Traefik" \
     org.opencontainers.image.description="A modern reverse-proxy" \
-    org.opencontainers.image.version="v3.7.0-ea.2" \
+    org.opencontainers.image.version="v3.7.0-ea.3" \
     org.opencontainers.image.documentation="https://docs.traefik.io"
