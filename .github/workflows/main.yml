@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
+          persist-credentials: false
 
       - name: Clone Docker official images
         run: git clone --depth 1 https://github.com/docker-library/official-images.git ~/official-images
@@ -35,6 +36,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
+          persist-credentials: false
 
       - name: Test
         run: .\.ci\test.ps1 -target 'servercore-ltsc2022'
@@ -50,6 +52,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 1
+          persist-credentials: false
 
       - name: Test
         run: .\.ci\test.ps1 -target 'servercore-ltsc2025'
